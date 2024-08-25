@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>누구와 떠나시나요?</title>
     <link rel="stylesheet" href="css/style2.css">
 </head>
 <body>
@@ -22,13 +22,55 @@
     <div class="main">
         <h1>누구와 떠나시나요?</h1>
         <div class="grid-container">
-            <a href="choice4.html"><button>혼자</button></a>
-            <a href="choice4.html"><button>연인과</button></a>
-            <a href="choice4.html"><button>친구와</button></a>
-            <a href="choice4.html"><button>부모님과</button></a>
-            <a href="choice4.html"><button>아이와</button></a>
-            <a href="choice4.html"><button>기타</button></a>
+            <button onclick="selectCompanion('혼자')">혼자</button>
+            <button onclick="selectCompanion('연인과')">연인과</button>
+            <button onclick="selectCompanion('친구와')">친구와</button>
+            <button onclick="selectCompanion('부모님과')">부모님과</button>
+            <button onclick="selectCompanion('아이와')">아이와</button>
+            <button onclick="selectCompanion('기타')">기타</button>
         </div>
     </div>
+
+    <script>
+        let choice = JSON.parse(localStorage.getItem('choice')) || [];
+
+        console.log(choice); // 배열의 전체 값을 콘솔에 출력
+
+        function selectCompanion(companion) {
+            let companionNumber;
+
+            switch(companion) {
+                case "혼자":
+                    companionNumber = 1;
+                    break;
+                case "연인과":
+                    companionNumber = 2;
+                    break;
+                case "친구와":
+                    companionNumber = 2;
+                    break;
+                case "부모님과":
+                    companionNumber = 3;
+                    break;
+                case "아이와":
+                    companionNumber = 4;
+                    break;
+                case "기타":
+                    companionNumber = 5;
+                    break;
+            }
+
+            // 여행 기간 선택이 이미 있는 경우, 그 값을 덮어쓰기
+            if (choice.length > 2) {
+                choice[2] = companionNumber; // 배열의 두 번째 값 덮어쓰기
+            } else {
+                choice.push(companionNumber); // 아직 값이 없으면 추가
+            }
+
+            localStorage.setItem('choice', JSON.stringify(choice));
+            localStorage.setItem('selectedCompanion', companion);
+            window.location.href = 'choice4.html';
+        }
+    </script>
 </body>
 </html>

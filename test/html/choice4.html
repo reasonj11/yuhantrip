@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>선호하는 여행 스타일은?</title>
     <link rel="stylesheet" href="css/style3.css">
 </head>
 <body>
@@ -22,9 +22,38 @@
     <div class="main">
         <h1>선호하는 여행 스타일은?</h1>
         <div class="grid-container">
-            <a href="final.html"><button>빽빽한 일정</button></a>
-            <a href="final.html"><button>여유로운 일정</button></a>
+            <button onclick="selectStyle('빽빽한 일정')">빽빽한 일정</button>
+            <button onclick="selectStyle('여유로운 일정')">여유로운 일정</button>
         </div>
     </div>
+    
+    <script>
+        let choice = JSON.parse(localStorage.getItem('choice')) || [];
+
+        console.log(choice); // 배열의 전체 값을 콘솔에 출력
+
+        function selectStyle(style) {
+            let styleNumber;
+
+            switch(style) {
+                case "빽빽한 일정":
+                    styleNumber = 1;
+                    break;
+                case "여유로운 일정":
+                    styleNumber = 2;
+                    break;
+            }
+
+            if (choice.length > 3) {
+                choice[3] = styleNumber; // 배열의 두 번째 값 덮어쓰기
+            } else {
+                choice.push(styleNumber); // 아직 값이 없으면 추가
+            }
+
+            localStorage.setItem('choice', JSON.stringify(choice));
+            localStorage.setItem('selectedStyle', style);
+            window.location.href = 'final.html';
+        }
+    </script>
 </body>
 </html>
